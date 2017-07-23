@@ -1,6 +1,6 @@
 <?php
 namespace App;
-//HELLO
+//HELLO DUDE
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
