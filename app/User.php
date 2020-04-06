@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 //    use Notifiable;//heyooo
+// 123
+
   
 private $testdkso = 123832937778888;
     /**
