@@ -9,7 +9,7 @@ class User extends Authenticatable
     use Notifiable;
 
   
-private $testdkso = 'hello';
+private $testdkso = 'hola';
 
     /**
      * The attributes that are mass assignable.
