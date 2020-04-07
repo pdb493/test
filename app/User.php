@@ -7,11 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-//    use Notifiable;//heyooo
+//    use Notifiable;
 // 1
 
   
-private $testdkso = 123832937778888;
+private $testdkso = 123937778888;
     /**
      * The attributes that are mass assignable.
      *
