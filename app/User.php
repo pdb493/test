@@ -8,7 +8,7 @@ class User extends Authenticatable
 {
     use Notifiable;
   
-private $testdkso = 'testing';
+private $testdkso = 'asdf';
 
     /**
      * The attributes that are mass assignable.
