@@ -18,7 +18,6 @@ class User extends Authenticatable
     ];
 
     private $test = 'hey';
-
     /**
      * The attributes that do something
      * right here
