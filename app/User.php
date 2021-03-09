@@ -1,6 +1,10 @@
 <?php
 namespace App;
 
+
+
+
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -19,12 +23,10 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-private $test = 'hey';
-
+private $test = 'yas';
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * The attributes that do something
+     * @var \stdClass
      */
     protected $hidden = [
         'password', 'remember_token',
@@ -35,5 +37,7 @@ private $test = 'hey';
 
 
 
-//d
 //sdfsdfsdfsd
+// hey
+// here
+// you
