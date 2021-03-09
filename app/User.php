@@ -8,10 +8,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+
+
 class User extends Authenticatable
 {
     use Notifiable;
-  
+// comment here  
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +23,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
-    private $test = 'hey';
+private $test = 'yas';
     /**
      * The attributes that do something
      * @var \stdClass
