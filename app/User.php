@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-// comment here  
+  // hey-ooooooo
     /**
      * The attributes that are mass assignable.
      *
@@ -35,9 +35,4 @@ private $test = 'yas';
 
 
 
-
-
-//sdfsdfsdfsd
-// hey
-// here
-// you
+//test
