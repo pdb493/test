@@ -17,10 +17,10 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    private $test = 'hey';
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * The attributes that do something
+     * @var \stdClass
      */
     protected $hidden = [
         'password', 'remember_token',
@@ -31,5 +31,7 @@ class User extends Authenticatable
 
 
 
-//d
 //sdfsdfsdfsd
+// hey
+// here
+// you
