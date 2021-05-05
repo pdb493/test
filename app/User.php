@@ -20,7 +20,7 @@ class User extends Authenticatable
     private $test =  'yas';
     
     /**
-     * The attributes that do something
+     * The  attributes  that dosomething
      * @var \stdClass
      */
     protected $hidden = [
