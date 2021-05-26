@@ -1,5 +1,6 @@
 <?php
 namespace App;
+// new commit
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
