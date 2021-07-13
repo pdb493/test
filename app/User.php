@@ -1,14 +1,9 @@
 <?php
 namespace App;
-
-
-
-
+// new commit
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
-
 
 class User extends Authenticatable
 {
@@ -19,13 +14,14 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
+    protected  $fillable = [
         'name', 'email', 'password',
     ];
 
-private $test = 'yas';
+    private $test =  'yas';
+    
     /**
-     * The attributes that do something
+     * The  attributes  that dosomething
      * @var \stdClass
      */
     protected $hidden = [
