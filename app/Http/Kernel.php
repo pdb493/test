@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-// TEST COMMENT
+// TEST COMMENT AGAIN
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
