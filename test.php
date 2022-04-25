@@ -1,3 +1,6 @@
 <?php
+ namespace App;
 
-echo 'Hey World!';
+ echo 'Hey World!';
+
+if(false ){echo 'false';}
