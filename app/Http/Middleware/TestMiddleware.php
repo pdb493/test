@@ -42,10 +42,7 @@ class SetCacheHeaders
             }
         }
 
-        $response->setCache($options);
-        $response->isNotModified($request);
-
-        return $response;
+        return $response->setCache($options)->isNotModified($request);
     }
 
     /**
