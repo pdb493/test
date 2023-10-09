@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-// new commit
 // another commit
 
 use Illuminate\Notifications\Notifiable;
