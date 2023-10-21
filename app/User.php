@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-  // hey-ooooooo
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,4 +29,29 @@ class User extends Authenticatable
         'password', 
 	'remember_tokenz',
     ];
+
+    /**
+     * This is just a test
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * Add some lines
+     */
 }
