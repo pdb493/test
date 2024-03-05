@@ -12,6 +12,9 @@ class User extends Authenticatable
   // hey-ooooooo
     /**
      * The attributes that are mass assignable.
+     * movement
+     * right
+     * here
      *
      * @var array
      */
