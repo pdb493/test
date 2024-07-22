@@ -34,6 +34,8 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
+        // making a change to a security sensitive file
         $this->middleware('guest');
+        $this->middleware('authentication');
     }
 }
