@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if bot has approved
-        if: github.event.pull_request.base.ref == 'master'github.event.pull_request.base.ref && (github.event_name == 'pull_request' || github.event_name == 'pull_request_review')
+        if: github.event.pull_request.base.ref == 'master' && (github.event_name == 'pull_request' || github.event_name == 'pull_request_review')
         uses: actions/github-script@v6
         with:
           script: |
