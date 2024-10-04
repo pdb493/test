@@ -20,6 +20,6 @@ jobs:
         gh api \
           repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
           --method POST \
-          --field reviewers='["patrick-local"]'
+          --field reviewers=["patrick-local"]
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
