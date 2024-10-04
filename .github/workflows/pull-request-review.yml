@@ -9,6 +9,8 @@ on:
       - synchronize
       - edited
   pull_request_review:
+    branches:
+      - master
     types:
       - submitted
 
