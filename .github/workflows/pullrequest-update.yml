@@ -1,12 +1,9 @@
 name: Pull Request Update
 
 on:
-  pull_request:
+  pull_request_review:
     types:
-      - opened
-      - synchronize
-      - edited
-      - reopened
+      - submitted
 
 jobs:
   dispatch_pull_request_workflow:
