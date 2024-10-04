@@ -1,14 +1,9 @@
 name: Enforce Bot Review
 
 on:
-  pull_request:
+  pull_request_review:
     branches:
       - master
-    types:
-      - opened
-      - synchronize
-      - edited
-  pull_request_review:
     types:
       - submitted
 
