@@ -1,21 +1,26 @@
-name: Request review on PRs
+name: Enforce Bot Review
 
 on:
   pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
+    branches:
+      - master
 
 jobs:
-  request:
-    name: Request reviews on opened PRs
-    runs-on: ubuntu-22.04
-
+  check-bot-review:
+    runs-on: ubuntu-latest
     steps:
-      - name: Create PR review request
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          url: ${{ github.event.pull_request.html_url }}
-        run: |
-          gh pr edit "$url" --add-reviewer patrick-local[bot]
+      - name: Check if bot has reviewed
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: reviews } = await github.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            
+            const botReview = reviews.find(review => review.user.login === 'patrick-local');
+            
+            if (!botReview) {
+              throw new Error('Bot has not reviewed this PR.');
+            }
