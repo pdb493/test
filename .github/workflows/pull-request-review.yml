@@ -1,25 +1,19 @@
-name: Require Bot Review
+name: Request review on PRs
 
 on:
   pull_request:
     types:
       - opened
-      - edited
-      - synchronize
 
 jobs:
-  require-bot-review:
-    runs-on: ubuntu-latest
+  request:
+    name: Request reviews on opened PRs
+    runs-on: ubuntu-22.04
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v3
-
-    - name: Request review from the bot
-      run: |
-        gh api \
-          repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
-          --method POST \
-          --field reviewers=["patrick-local"]
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create PR review request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          url: ${{ github.event.pull_request.html_url }}
+        run: |
+          gh pr edit "$url" --add-reviewer patrick-local
