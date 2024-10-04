@@ -17,6 +17,6 @@ jobs:
 
     - name: Request review from the bot
       run: |
-        gh pr review ${{ github.event.pull_request.number }} --request-review "app/patrick-local"
+        gh pr review ${{ github.event.pull_request.number }} --request-review "patrick-local"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
