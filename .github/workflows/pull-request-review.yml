@@ -1,0 +1,22 @@
+name: Require Bot Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  require-bot-review:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Request review from the bot
+      run: |
+        gh pr review ${{ github.event.pull_request.number }} --request-review "app/bot"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
