@@ -2,20 +2,17 @@ name: Enforce Bot Review
 
 on:
   pull_request:
-    branches:
-      - master
     types:
       - opened
       - synchronize
       - edited
   pull_request_review:
-    branches:
-      - master
     types:
       - submitted
 
 jobs:
   check-bot-review:
+    if: ${{ github.event.pull_request.base.ref == 'master' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check if bot has reviewed
