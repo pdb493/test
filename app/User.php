@@ -1,15 +1,13 @@
 <?php
-// test
+
 namespace App;
-// another commit
 
 use Illuminate\Notifications\Notifiable;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
-  // hey-ooooooo
+  
     /**
      * The attributes that are mass assignable.
      * movement
