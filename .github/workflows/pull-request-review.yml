@@ -15,27 +15,18 @@ jobs:
   require-pullrequest-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify that PullRequest has reviewed
-        if: ${{ github.event.pull_request.base.ref == 'master' && (github.event_name == 'pull_request' || github.event_name == 'pull_request_review') }}
-        uses: actions/github-script@v6
+      - name: Check for PullRequest Review
         id: check_review
-        with:
-          script: |
-            const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-            });
-            
-            const pullRequestReviewed = reviews.find(review => 
-              review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
-            );
-            
-            if (pullRequestReviewed) {
-              echo "reviewed" >> $GITHUB_ENV
-            }
+        run: |
+          echo "Checking for PullRequest reviews..."
+          reviews=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/reviews")
 
-      - name: Determine status
+          if echo "$reviews" | jq -e '.[] | select(.user.login == "patrick-local[bot]" and .state == "APPROVED")' > /dev/null; then
+            echo "reviewed" >> $GITHUB_ENV
+          fi
+
+      - name: Determine Status
         if: env.STATUS_CHECK != 'reviewed'
         run: |
           echo "PullRequest has not yet reviewed this change."
