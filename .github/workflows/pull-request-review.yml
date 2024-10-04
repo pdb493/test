@@ -1,24 +1,22 @@
-name: Enforce Bot Review
+name: Enforce Bot Approval on Specific Base Branch
 
-on: [
-  pull_request: [
+on:
+  pull_request:
     types:
       - opened
       - synchronize
       - edited
-  ],
-  pull_request_review: [
+      - reopened
+  pull_request_review:
     types:
       - submitted
-  ],
-]
 
 jobs:
-  check-bot-review:
-    if: ${{ github.event.pull_request.base.ref == 'master' }}
+  check-bot-approval:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if bot has reviewed
+      - name: Check if bot has approved
+        if: github.event.pull_request.base.ref == 'master'
         uses: actions/github-script@v6
         with:
           script: |
@@ -28,8 +26,10 @@ jobs:
               pull_number: context.payload.pull_request.number,
             });
             
-            const botReview = reviews.find(review => review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED');
+            const botApproval = reviews.find(review => 
+              review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
+            );
             
-            if (!botReview) {
-              throw new Error('Bot has not reviewed this PR.');
+            if (!botApproval) {
+              throw new Error('Bot has not approved this PR targeting the master branch.');
             }
