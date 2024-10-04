@@ -23,7 +23,7 @@ jobs:
               pull_number: context.payload.pull_request.number,
             });
             
-            const botReview = reviews.find(review => review.user.login === 'patrick-local');
+            const botReview = reviews.find(review => review.user.login === 'patrick-local[bot]');
             
             if (!botReview) {
               throw new Error('Bot has not reviewed this PR.');
