@@ -8,6 +8,9 @@ on:
       - opened
       - synchronize
       - edited
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   check-bot-review:
