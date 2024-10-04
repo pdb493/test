@@ -27,33 +27,16 @@ jobs:
               pull_number: context.payload.pull_request.number,
             });
             
-            const pullRequestApproval = reviews.find(review => 
+            const pullRequestReviewed = reviews.find(review => 
               review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
             );
             
-            if (!pullRequestApproval) {
-              return 'pending';
-            } else {
-              return 'reviewed';
+            if (pullRequestReviewed) {
+              echo "reviewed" >> $GITHUB_ENV
             }
 
       - name: Determine status
-        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_review'
+        if: env.STATUS_CHECK != 'reviewed'
         run: |
-          if [[ "${{ steps.check_branch.outputs.result }}" == "reviewed" ]]; then
-            echo "reviewed" >> $GITHUB_ENV
-          fi
-
-      - name: Update GitHub Status Check
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const status = process.env.STATUS_CHECK || 'pending';
-            await github.rest.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.payload.pull_request.head.sha,
-              state: status === 'reviewed' ? 'success' : 'pending',
-              context: 'PullRequest Review Status',
-              description: status === 'success' ? 'PullRequest has reviewed this change.' : 'Waiting for PullRequest to review this change.',
-            });
+          echo "PullRequest has not yet reviewed this change."
+          exit 1
