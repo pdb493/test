@@ -1,0 +1,38 @@
+name: PullRequest Review
+
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+      - synchronize
+      - edited
+      - reopened
+
+jobs:
+  require-pullrequest-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for PullRequest review
+        id: check_pullrequest_review
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+
+            const pullRequestReviewed = reviews.find(review => 
+              review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
+            );
+
+            return { status: (pullRequestReviewed ? 'reviewed' : 'pending') };
+
+      - name: Update Status
+        if: steps.check_pullrequest_review.outputs.status != 'reviewed'
+        run: |
+          echo "Awaiting PullRequest's review of this change."
+          exit 1

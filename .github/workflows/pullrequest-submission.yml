@@ -1,0 +1,18 @@
+name: PullRequest Submission
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  trigger_pullrequest_review_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run PullRequest Review Workflow
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/pullrequest-review.yml/dispatches" \
+            -d '{"ref": "${{ github.ref }}"}'
