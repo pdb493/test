@@ -1,30 +1,39 @@
-name: Require PullRequest Review
+name: Require PullRequest Approval
 
 on:
   pull_request_review:
-    types:
-      - submitted
+    types: [submitted]
 
 jobs:
-  require-pullrequest-review:
-    if: ${{ github.event.inputs.base_branch }} == 'master'
+  check-approval:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for PullRequest review
-        id: check_pullrequest_review
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const pull_number = ${{ context.pull_number }};
+    - name: Validate Base Branch
+      if: ${{ github.event.pull_request.base.ref != 'master' }}
+      run: |
+        exit 0
 
-            const { data: reviews } = await github.rest.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: pull_number,
-            });
+    - name: Check for PullRequest approval
+      uses: actions/github-script@v6
+      id: check_pullrequest_review
+      with:
+        script: |
+          const { owner, repo, number } = context.issue;
+          
+          const reviews = await github.rest.pulls.listReviews({
+            owner: owner,
+            repo: repo,
+            pull_number: number,
+          });
 
-            const pullRequestReviewed = reviews.find(review => 
-              review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
-            );
+          const pullRequestApproved = reviews.data.some(review =>
+            review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
+          );
 
-            return { status: (pullRequestReviewed ? 'success' : 'pending') };
+          return { result: (pullRequestApproved ? 'approved' : 'not approved') };
+
+    - name: Handle Result
+      if: ${{ steps.check_reviews.outputs.result == 'not approved' }}
+      run: |
+        echo "Still awaiting PullRequest's approval of this change."
+        exit 1
