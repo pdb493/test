@@ -33,7 +33,7 @@ jobs:
           return { result: (pullRequestApproved ? 'approved' : 'not approved') };
 
     - name: Handle Result
-      if: ${{ steps.check_reviews.outputs.result == 'not approved' }}
+      if: ${{ steps.check_pullrequest_review.outputs.result == 'not approved' }}
       run: |
         echo "Still awaiting PullRequest's approval of this change."
         exit 1
