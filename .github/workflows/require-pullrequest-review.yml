@@ -15,7 +15,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const pull_number = ${{ github.event.inputs.pull_request_number }};
+            const pull_number = ${{ context.pull_number }};
 
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
