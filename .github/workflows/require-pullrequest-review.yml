@@ -12,6 +12,7 @@ on:
 
 jobs:
   require-pullrequest-review:
+    if: ${{ github.event.inputs.base_branch }} == 'master'
     runs-on: ubuntu-latest
     steps:
       - name: Check for PullRequest review
@@ -19,12 +20,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const base_branch = ${{ github.event.inputs.base_branch }};
             const pull_number = ${{ github.event.inputs.pull_request_number }};
-
-            if (base_branch !== 'master') {
-              exit 0;
-            }
 
             const { data: reviews } = await github.rest.pulls.listReviews({
               owner: context.repo.owner,
