@@ -26,4 +26,7 @@ jobs:
             review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
           );
 
-          process.exit(pullRequestApproved ? 0 : 1);
+          if (!pullRequestApproved) {
+            console.log("Still awaiting PullRequest's approval of this change.")
+            process.exit(1);
+          }
