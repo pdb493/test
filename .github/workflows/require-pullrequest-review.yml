@@ -1,0 +1,35 @@
+name: Require PullRequest Approval
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  require-pullrequest-approval:
+    if: ${{ github.event.pull_request.base.ref == 'master' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check for PullRequest approval
+      uses: actions/github-script@v6
+      id: check_pullrequest_review
+      with:
+        script: |
+          const { owner, repo, number } = context.issue;
+          
+          const reviews = await github.rest.pulls.listReviews({
+            owner: owner,
+            repo: repo,
+            pull_number: number,
+          });
+
+          const pullRequestApproved = reviews.data.some(review =>
+            review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
+          );
+
+          return { result: (pullRequestApproved ? 'approved' : 'not approved') };
+
+    - name: Handle Result
+      if: ${{ steps.check_pullrequest_review.outputs.result == 'not approved' }}
+      run: |
+        echo "Still awaiting PullRequest's approval of this change."
+        exit 1
