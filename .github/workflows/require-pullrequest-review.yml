@@ -6,13 +6,9 @@ on:
 
 jobs:
   require-pullrequest-approval:
+    if: ${{ github.event.pull_request.base.ref == 'master' }}
     runs-on: ubuntu-latest
     steps:
-    - name: Validate Base Branch
-      if: ${{ github.event.pull_request.base.ref != 'master' }}
-      run: |
-        exit 0
-
     - name: Check for PullRequest approval
       uses: actions/github-script@v6
       id: check_pullrequest_review
