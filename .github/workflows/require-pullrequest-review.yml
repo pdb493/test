@@ -26,10 +26,8 @@ jobs:
             review.user.login === 'patrick-local[bot]' && review.state === 'APPROVED'
           );
 
-          return { result: (pullRequestApproved ? 'approved' : 'not approved') };
+          if (!pullRequestApproved) {
+            console.log("Still awaiting PullRequest's approval of this change.");
 
-    - name: Handle Result
-      if: ${{ steps.check_pullrequest_review.outputs.result == 'not approved' }}
-      run: |
-        echo "Still awaiting PullRequest's approval of this change."
-        exit 1
+            exit 1;
+          }
